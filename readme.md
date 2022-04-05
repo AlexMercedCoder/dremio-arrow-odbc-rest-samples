@@ -14,6 +14,10 @@ To customize to your dremio instance create a config.json with the following inf
 ```
 *personalKey = personal access token from Dremio Cloud (under account settings)
 
-make sure to create and activate a virtual environment and install all the libraries in the requirements.txt.
+make sure to create and activate a virtual environment and install all the libraries in the requirements.txt. 
+
+- `python -m venv venv`
+- `source ./venv/bin/activate`
+- `pip install -r requirements.txt`
 
 - go [here to download](https://docs.dremio.com/cloud/client-applications/dremio-drivers/) and install odbc drivers 
