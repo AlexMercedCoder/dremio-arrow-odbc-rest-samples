@@ -9,13 +9,13 @@ from getConfig import getConfig
 config = getConfig()
 
 ## Create JDBC Connection String
-connection_string=f"{config.get('JDBC_string', 'OOPS')}username=$token;password={config.get('personalKey', 'OOPS')};"
+connection_string=f"{config.get('JDBC_string', 'OOPS')}username=$token;password={config.get('personalKey', 'OOPS')};ssl=true;"
 
 print(connection_string)
 
 ## Establish Connection
 conn = jaydebeapi.connect("com.dremio.jdbc.Driver",
-                          connection_string,{"ssl": "false"},config.get("jdbcjar", "oops"))
+                          connection_string,[],config.get("jdbcjar", "oops"))
 
 ## Create Cursor
 curs = conn.cursor()
