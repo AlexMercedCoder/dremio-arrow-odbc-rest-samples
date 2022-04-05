@@ -9,3 +9,5 @@ To customize to your dremio instance create a config.json with the following inf
 ```
 
 make sure to create and activate a virtual environment and install all the libraries in the requirements.txt.
+
+- go [here to download](https://docs.dremio.com/cloud/client-applications/dremio-drivers/) and install odbc drivers 
