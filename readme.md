@@ -1,4 +1,4 @@
-## Getting Data from Dremio
+## Getting Data from Dremio (in progress)
 
 In this repository you'll find scripts on how to get data from Dremio using Dremio's REST API, ODBC and Arrow. The default scripts are designed to capture the time for these requests.
 
