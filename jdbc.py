@@ -1,3 +1,6 @@
+#----------------------------------
+# IMPORTS
+#----------------------------------
 ## Import Time
 import time
 
@@ -8,10 +11,15 @@ import jaydebeapi
 from getConfig import getConfig
 config = getConfig()
 
+#----------------------------------
+# SETUP
+#----------------------------------
 ## Create JDBC Connection String
 connection_string=f"{config.get('JDBC_string', 'OOPS')}username=$token;password={config.get('personalKey', 'OOPS')};ssl=true;"
 
-print(connection_string)
+#----------------------------------
+# CREATE CONNECTION AND CURSOR
+#----------------------------------
 
 ## Establish Connection
 conn = jaydebeapi.connect("com.dremio.jdbc.Driver",
@@ -20,9 +28,17 @@ conn = jaydebeapi.connect("com.dremio.jdbc.Driver",
 ## Create Cursor
 curs = conn.cursor()
 
+#----------------------------------
+# RUN QUERY
+#----------------------------------
+
 ## Send Query
 curs.execute("SELECT * FROM \"@dremio.demo@gmail.com\".\"nyc-taxi-data\" limit 100")
 curs.fetchall()
+
+#----------------------------------
+# Close Connection and Cursor
+#----------------------------------
 
 ## Close Connection
 curs.close()

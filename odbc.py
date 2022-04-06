@@ -1,3 +1,7 @@
+#----------------------------------
+# IMPORTS
+#----------------------------------
+
 ## Import Time
 import time
 
@@ -8,21 +12,29 @@ import pyodbc
 from getConfig import getConfig
 config = getConfig()
 
+#----------------------------------
+# SETUP
+#----------------------------------
+
 token=config.get("personalKey", "personalKey missing from config.json")
 connector="Driver={Dremio ODBC Driver 64-bit};ConnectionType=Direct;HOST=sql.dremio.cloud;PORT=443;AuthenticationType=Plain;" + f"UID=$token;PWD={token};ssl=true;"
-print(connector)
 
-
+#----------------------------------
+# CREATE CONNECTION AND CURSOR
+#----------------------------------
 
 # establist connection
 cnxn = pyodbc.connect(connector, autocommit=True)
-
 
 # set encoding
 cnxn.setdecoding(pyodbc.SQL_CHAR, encoding='utf-8')
 
 # creating a cursor to send messages through the connection
 cursor = cnxn.cursor()
+
+#----------------------------------
+# RUN QUERY
+#----------------------------------
 
 ## Start Clock
 begin = time.time()
@@ -41,4 +53,4 @@ while True:
     print(row)
     
 ## Print time it took
-print(f"the took {end-begin} seconds to complete query")
+print(f"took {end-begin} seconds to complete query")
