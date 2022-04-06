@@ -2,6 +2,8 @@
 
 In this repository you'll find scripts on how to get data from Dremio using Dremio's REST API, ODBC and Arrow. The default scripts are designed to capture the time for these requests.
 
+**NOTE: Make sure you have the right C++ libraries for ODBC and turbodbc to work correctly, these are listed here: https://turbodbc.readthedocs.io/en/latest/pages/getting_started.html
+
 To customize to your dremio instance create a config.json with the following information:
 
 ```json

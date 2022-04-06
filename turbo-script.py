@@ -6,10 +6,11 @@
 import time
 
 ## Import pyodbc
-import pyodbc
+from turbodbc import connect
 
 ## import pandas
 import pandas as pd
+import turbodbc
 
 ## get configurations from config.json
 from getConfig import getConfig
@@ -26,11 +27,11 @@ connector="Driver={Dremio ODBC Driver 64-bit};ConnectionType=Direct;HOST=sql.dre
 # CREATE CONNECTION AND CURSOR
 #----------------------------------
 
-# establist connection
-cnxn = pyodbc.connect(connector, autocommit=True)
+# Make Options
+options = turbodbc.make_options(autocommit=True)
 
-# set encoding
-cnxn.setdecoding(pyodbc.SQL_CHAR, encoding='utf-8')
+# establist connection
+cnxn = connect(connection_string=connector, turbodbc_options=options)
 
 # creating a cursor to send messages through the connection
 cursor = cnxn.cursor()

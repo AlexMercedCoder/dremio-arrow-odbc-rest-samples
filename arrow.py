@@ -40,29 +40,39 @@ def make_query(query, client, headers):
     options = flight.FlightCallOptions(headers=headers)
     schema = client.get_schema(flight_desc, options)
     send = time.time()
-    print(f"getting schema took {send-sbegin} seconds")
+    schema_time = send-sbegin
+
     
     sbegin = time.time()
     ## Get ticket to for query execution, used to get results
     flight_info = client.get_flight_info(flight.FlightDescriptor.for_command(query), options)
     send = time.time()
-    print(f"getting ticket took {send-sbegin} seconds")
+    ticket_time = send-sbegin
     
     sbegin = time.time()
     ## Get Results 
     results = client.do_get(flight_info.endpoints[0].ticket, options)
     send = time.time()
-    print(f"getting results took {send-sbegin} seconds")
-    return results
+    results_time = send-sbegin
+    return [results, schema_time, ticket_time, results_time]
 
 #----------------------------------
 # Run Query
 #----------------------------------
 
 begin = time.time() # Start Clock
-results = make_query("SELECT * FROM \"@dremio.demo@gmail.com\".\"nyc-taxi-data\" limit 100", client, headers)
+results = make_query("SELECT * FROM \"@dremio.demo@gmail.com\".\"nyc-taxi-data\" limit 200000", client, headers)
 end = time.time() # End Clock
+query_time=end-begin
 
+begin = time.time() # Start Clock
+print(results[0].read_pandas())
+end = time.time() # End Clock
+conversion_time=end-begin
 
-print(results.read_pandas())
-print(f"Query Completed in {end-begin} seconds")
+print(f"Query step 1/3 - Get Schema: {results[1]} seconds")
+print(f"Query step 2/3 - Get Ticket: {results[2]} seconds")
+print(f"Query step 3/3 - Get Results: {results[3]} seconds")
+print(f"Full Query Completed in {query_time} seconds")
+print(f"conversion to pandas Completed in {conversion_time} seconds")
+print(f"Total Time: {query_time + conversion_time} seconds")
