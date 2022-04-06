@@ -24,3 +24,11 @@ make sure to create and activate a virtual environment and install all the libra
 - `pip install -r requirements.txt`
 
 - go [here to download](https://docs.dremio.com/cloud/client-applications/dremio-drivers/) and install odbc drivers 
+
+## Troubleshooting Tips
+
+#### For ODBC
+
+- make sure unixODBC is installed
+- make sure the odbc.ini and odbcinst.ini have the right driver data
+- make sure autocommit is on

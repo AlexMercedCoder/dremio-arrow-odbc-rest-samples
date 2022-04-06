@@ -61,7 +61,7 @@ def make_query(query, client, headers):
 #----------------------------------
 
 begin = time.time() # Start Clock
-results = make_query("SELECT * FROM \"@dremio.demo@gmail.com\".\"nyc-taxi-data\" limit 200000", client, headers)
+results = make_query("SELECT * FROM \"@dremio.demo@gmail.com\".\"nyc-taxi-data\" limit 1000000", client, headers)
 end = time.time() # End Clock
 query_time=end-begin
 

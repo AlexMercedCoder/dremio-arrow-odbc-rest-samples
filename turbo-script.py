@@ -44,7 +44,7 @@ cursor = cnxn.cursor()
 begin = time.time()
 
 ## run a query
-rows = cursor.execute("SELECT * FROM \"@dremio.demo@gmail.com\".\"nyc-taxi-data\" limit 400000").fetchall()
+rows = cursor.execute("SELECT * FROM \"@dremio.demo@gmail.com\".\"nyc-taxi-data\" limit 1000000").fetchall()
 
 end = time.time()
 query_time=end-begin
