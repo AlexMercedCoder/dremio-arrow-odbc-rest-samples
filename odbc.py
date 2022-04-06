@@ -9,13 +9,14 @@ from getConfig import getConfig
 config = getConfig()
 
 token=config.get("personalKey", "personalKey missing from config.json")
-connector="Driver={Dremio ODBC Driver 64-bit};ConnectionType=Direct;HOST=sql.dremio.cloud;PORT=443;AuthenticationType=Plain;"
+connector="Driver={Dremio ODBC Driver 64-bit};ConnectionType=Direct;HOST=sql.dremio.cloud;PORT=443;AuthenticationType=Plain;" + f"UID=$token;PWD={token};ssl=true;"
 print(connector)
 
 
 
 # establist connection
-cnxn = pyodbc.connect(connector)
+cnxn = pyodbc.connect(connector, autocommit=True)
+
 
 # set encoding
 cnxn.setdecoding(pyodbc.SQL_CHAR, encoding='utf-8')
@@ -37,7 +38,7 @@ while True:
     row = cursor.fetchone()
     if not row:
         break
-    print('id:', row.user_id)
+    print(row)
     
 ## Print time it took
 print(f"the took {end-begin} seconds to complete query")
